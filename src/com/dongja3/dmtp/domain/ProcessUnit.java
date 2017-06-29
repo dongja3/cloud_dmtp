@@ -1,6 +1,6 @@
 package com.dongja3.dmtp.domain;
 
-import com.dongja3.dmtp.domain.bridge.Bridgeable;
+import com.dongja3.dmtp.domain.bridge.BridgeTrigger;
 
 import java.util.List;
 
@@ -8,34 +8,20 @@ import java.util.List;
  * Created by DONGJA3 on 6/12/2017.
  */
 public abstract  class ProcessUnit extends DomainObj {
-    private  Bridgeable bridgeable;
+    private BridgeTrigger bridgeable;
     private ProcessUnit first;
     private ProcessUnit next;
     private boolean storeSource;
     private boolean storeTarget;
-    abstract  public  String getName();
+    private String name;
+    private List<BridgeTrigger> bridgeTriggers;
     abstract  public List<TriggerCondition> getSupportedConditions();
-    abstract  public List<TriggerCondition> process();
 
-    public void doFlow(){
-        ProcessUnit processUnit = first;
-        do{
-            doProcessUnit(processUnit);
-            processUnit = processUnit.next;
-        }while (processUnit!=null);
-    }
-
-    private void doProcessUnit(ProcessUnit processUnit){
-        List<TriggerCondition> triggerConditions = processUnit.process();
-        processUnit.getBridgeable().bridge(triggerConditions);
-    }
-
-
-    public Bridgeable getBridgeable() {
+    public BridgeTrigger getBridgeable() {
         return bridgeable;
     }
 
-    public void setBridgeable(Bridgeable bridgeable) {
+    public void setBridgeable(BridgeTrigger bridgeable) {
         this.bridgeable = bridgeable;
     }
 
@@ -61,5 +47,29 @@ public abstract  class ProcessUnit extends DomainObj {
 
     public void setStoreTarget(boolean storeTarget) {
         this.storeTarget = storeTarget;
+    }
+
+    public ProcessUnit getNext() {
+        return next;
+    }
+
+    public void setNext(ProcessUnit next) {
+        this.next = next;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<BridgeTrigger> getBridgeTriggers() {
+        return bridgeTriggers;
+    }
+
+    public void setBridgeTriggers(List<BridgeTrigger> bridgeTriggers) {
+        this.bridgeTriggers = bridgeTriggers;
     }
 }

@@ -1,7 +1,6 @@
 package com.dongja3.dmtp.domain.bridge;
 
 import com.dongja3.dmtp.domain.ProcessFileType;
-import com.dongja3.dmtp.domain.ProcessUnit;
 import com.dongja3.dmtp.domain.TriggerCondition;
 
 import java.util.List;
@@ -9,12 +8,13 @@ import java.util.List;
 /**
  * Created by DONGJA3 on 6/12/2017.
  */
-public abstract class Bridge extends ProcessUnit {
+public  class Bridge extends AbstractBridge{
     private boolean stopMainFlow;
-    private boolean isCallBack;
     private ProcessFileType fileType;
+    private int sequence;
+
     @Override
-    public List<TriggerCondition> process() {
+    public List<TriggerCondition> getSupportedConditions() {
         return null;
     }
 }
